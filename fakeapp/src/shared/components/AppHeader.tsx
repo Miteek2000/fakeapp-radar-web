@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Radar } from "lucide-react";
+import { APP_NAME } from "@/shared/config";
 import { HeaderNav } from "./HeaderNav";
 
 interface AppHeaderProps {
@@ -14,7 +15,7 @@ export function AppHeader({ fileName }: AppHeaderProps) {
           <span className="grid size-[38px] place-items-center rounded-[10px] bg-brand text-white">
             <Radar className="size-5" aria-hidden />
           </span>
-          FakeApp Radar
+          {APP_NAME}
         </Link>
 
         {fileName ? (

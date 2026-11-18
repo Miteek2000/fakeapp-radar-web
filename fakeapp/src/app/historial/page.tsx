@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { APP_NAME } from "@/shared/config";
 import { AppHeader } from "@/shared/components/AppHeader";
 import { Container } from "@/shared/components/Container";
 import { HistoryList } from "@/features/history";
 
-export const metadata: Metadata = { title: "Historial · FakeApp Radar" };
+export const metadata: Metadata = { title: `Historial · ${APP_NAME}` };
 
 export default function HistoryPage() {
   return (

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import "@fontsource-variable/plus-jakarta-sans";
 import "./globals.css";
+import { APP_NAME } from "@/shared/config";
 import { AuthProvider } from "@/features/auth";
 
 export const metadata: Metadata = {
-  title: "FakeApp Radar",
+  title: APP_NAME,
   description:
     "Revisa un APK antes de instalarlo. Te explicamos sus permisos en español, sin tecnicismos.",
 };

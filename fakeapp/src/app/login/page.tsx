@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { APP_NAME } from "@/shared/config";
 import { AppHeader } from "@/shared/components/AppHeader";
 import { LoginForm } from "@/features/auth";
 
-export const metadata: Metadata = { title: "Iniciar sesión · FakeApp Radar" };
+export const metadata: Metadata = { title: `Iniciar sesión · ${APP_NAME}` };
 
 export default function LoginPage() {
   return (
