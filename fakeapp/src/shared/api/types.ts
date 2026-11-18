@@ -64,3 +64,35 @@ export interface AnalysisResult {
   error: string | null;
   virustotal: VirusTotalInfo | null;
 }
+
+// --- Cuentas e historial (fakeapp-radar-api: app/routers/auth.py y app/schemas.py) ---
+
+export interface User {
+  id: string;
+  email: string;
+  created_at: string;
+}
+
+export interface TokenResponse {
+  access_token: string;
+  token_type: string;
+  expires_in: number; // segundos
+  user: User;
+}
+
+export interface AnalysisSummary {
+  id: string;
+  status: AnalysisStatus;
+  sha256: string;
+  size_bytes: number;
+  risk_score: number | null;
+  risk_level: RiskLevel | null;
+  created_at: string;
+  finished_at: string | null;
+}
+
+export interface AnalysisList {
+  items: AnalysisSummary[];
+  limit: number;
+  offset: number;
+}

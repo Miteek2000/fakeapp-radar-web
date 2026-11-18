@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "@fontsource-variable/plus-jakarta-sans";
 import "./globals.css";
+import { AuthProvider } from "@/features/auth";
 
 export const metadata: Metadata = {
   title: "FakeApp Radar",
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className="h-full">
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col"><AuthProvider>{children}</AuthProvider></body>
     </html>
   );
 }

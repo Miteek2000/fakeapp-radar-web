@@ -7,7 +7,7 @@ const STEPS = [
 export function HowItWorks() {
   return (
     <section id="como-funciona" className="mx-auto w-full max-w-[1440px] scroll-mt-6 px-5 pb-16 sm:px-10 lg:px-20">
-      <h2 className="sr-only">Cómo funciona</h2>
+      <h2 className="sr-only">Paso a paso</h2>
       <ol className="grid gap-4 md:grid-cols-3">
         {STEPS.map((step, i) => (
           <li key={step.title} className="flex items-start gap-4 rounded-2xl bg-surface p-5 shadow-card">

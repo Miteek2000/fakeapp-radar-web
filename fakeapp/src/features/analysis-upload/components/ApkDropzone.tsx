@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { LoaderCircle, ShieldCheck, Upload } from "lucide-react";
 import { MAX_UPLOAD_MB } from "@/shared/config";
@@ -17,6 +16,8 @@ export function ApkDropzone() {
   function handleFiles(files: FileList | null) {
     const file = files?.[0];
     if (file) void upload(file);
+    // Permite volver a elegir el mismo archivo (si no, el navegador no dispara onChange).
+    if (inputRef.current) inputRef.current.value = "";
   }
 
   return (
@@ -75,9 +76,6 @@ export function ApkDropzone() {
           <ShieldCheck className="size-3.5" aria-hidden />
           Límite {MAX_UPLOAD_MB} MB
         </span>
-        <Link href="/analisis/demo" className="font-semibold text-brand hover:underline">
-          ¿Quieres ver cómo se ve un resultado? Ver ejemplo
-        </Link>
       </div>
     </div>
   );

@@ -21,6 +21,8 @@ export function useUploadApk() {
     try {
       const created = await createAnalysis(file);
       router.push(`/analisis/${created.id}`);
+      // La pantalla queda en caché al volver atrás: sin esto seguiría en "Subiendo…" para siempre.
+      setUploading(false);
     } catch (e) {
       setError(e instanceof ApiError ? e.message : "Algo salió mal. Inténtalo de nuevo.");
       setUploading(false);

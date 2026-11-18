@@ -8,7 +8,7 @@ import type { AnalysisReport, VirusTotalInfo } from "@/shared/api/types";
 import { AppHeader } from "@/shared/components/AppHeader";
 import { buttonStyles } from "@/shared/components/buttons";
 import { Container } from "@/shared/components/Container";
-import { downloadReport, reportLabel } from "../lib/report";
+import { reportLabel } from "../lib/report";
 import { ActionsView } from "./ActionsView";
 import { PermissionsView } from "./PermissionsView";
 import { StepIndicator } from "./StepIndicator";
@@ -63,14 +63,9 @@ export function ResultFlow({ report, virustotal }: { report: AnalysisReport; vir
                 <ArrowRight className="size-4" aria-hidden />
               </button>
             ) : (
-              <div className="flex flex-col-reverse gap-3 sm:flex-row">
-                <button type="button" onClick={() => downloadReport(report)} className={buttonStyles("secondary", "w-full sm:w-auto")}>
-                  Exportar reporte
-                </button>
-                <Link href="/" className={buttonStyles("primary", "w-full sm:w-auto")}>
-                  Analizar otro APK
-                </Link>
-              </div>
+              <Link href="/" className={buttonStyles("primary", "w-full sm:w-auto")}>
+                Analizar otro APK
+              </Link>
             )}
           </div>
         </Container>
