@@ -1,0 +1,74 @@
+# Reglas propias de Semgrep para el front de APK Radar.
+# Uso:  python -m semgrep scan --metrics off --config security/semgrep src
+rules:
+  - id: front-dangerouslysetinnerhtml
+    languages: [typescript, javascript]
+    severity: ERROR
+    message: dangerouslySetInnerHTML inserta HTML sin escapar (XSS). Renderiza texto como hijo de JSX.
+    metadata: { cwe: "CWE-79" }
+    pattern: <$EL dangerouslySetInnerHTML={...} />
+
+  - id: front-innerhtml-asignado
+    languages: [typescript, javascript]
+    severity: ERROR
+    message: Asignar innerHTML/outerHTML permite XSS. Usa textContent.
+    metadata: { cwe: "CWE-79" }
+    pattern-either:
+      - pattern: $X.innerHTML = $V
+      - pattern: $X.outerHTML = $V
+
+  - id: front-eval
+    languages: [typescript, javascript]
+    severity: ERROR
+    message: eval / new Function ejecutan texto como código.
+    metadata: { cwe: "CWE-95" }
+    pattern-either:
+      - pattern: eval(...)
+      - pattern: new Function(...)
+
+  - id: front-token-en-localstorage
+    languages: [typescript, javascript]
+    severity: ERROR
+    message: Guardar tokens o contraseñas en localStorage/sessionStorage los expone a XSS. El access token va solo en memoria.
+    metadata: { cwe: "CWE-922" }
+    patterns:
+      - pattern-either:
+          - pattern: localStorage.setItem($K, $V)
+          - pattern: sessionStorage.setItem($K, $V)
+      - metavariable-regex:
+          metavariable: $K
+          regex: (?i).*(token|password|secret|jwt|key).*
+
+  - id: front-secreto-en-codigo
+    languages: [typescript, javascript]
+    severity: ERROR
+    message: Posible secreto escrito en el código. Usa variables de entorno en el servidor, nunca NEXT_PUBLIC_.
+    metadata: { cwe: "CWE-798" }
+    patterns:
+      - pattern: const $N = "..."
+      - metavariable-regex:
+          metavariable: $N
+          regex: (?i).*(apikey|api_key|secret|password|privatekey).*
+
+  - id: front-secreto-en-next-public
+    languages: [typescript, javascript]
+    severity: ERROR
+    message: Las variables NEXT_PUBLIC_ se publican en el navegador. No pongas claves ahí.
+    metadata: { cwe: "CWE-200" }
+    pattern-regex: process\.env\.NEXT_PUBLIC_\w*(KEY|SECRET|TOKEN|PASSWORD)\w*
+
+  - id: front-http-sin-tls
+    languages: [typescript, javascript]
+    severity: WARNING
+    message: URL http:// fija en el código. Usa https:// (o la ruta relativa /api).
+    metadata: { cwe: "CWE-319" }
+    pattern-regex: '"http://(?!localhost|127\.0\.0\.1)[^"\s]+"'
+
+  - id: front-enlace-externo-sin-noopener
+    languages: [typescript, javascript]
+    severity: WARNING
+    message: Enlace con target="_blank" sin rel="noopener noreferrer".
+    metadata: { cwe: "CWE-1022" }
+    patterns:
+      - pattern: <a ... target="_blank" ... />
+      - pattern-not: <a ... rel="..." ... />

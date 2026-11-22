@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Genera una carpeta autosuficiente para la imagen Docker de produccion.
+  output: "standalone",
   // Permite abrir el modo desarrollo por https://localhost (proxy con TLS 1.3).
   allowedDevOrigins: ["localhost"],
   // Reenvia /api/* a la API de FakeApp Radar (evita problemas de CORS en desarrollo).
