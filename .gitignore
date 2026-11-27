@@ -1,0 +1,22 @@
+# Dependencias y compilados
+node_modules/
+.next/
+out/
+build/
+coverage/
+
+# Secretos y llaves (nunca subir)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+apkradar-aws*
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+npm-debug.log*
+*.tsbuildinfo
